@@ -1,0 +1,48 @@
+.chatbox{
+	width:auto;
+	min-width: 100px;
+	height: 400px;
+	background: white;
+	padding: 5px;
+	margin: -10px -60px 10px;
+	
+}
+.chatlog{
+	padding: 10px;
+	width: 100%;
+	height:380px;
+	overflow-x:  hidden;
+	overflow-y: scroll;
+	position: relative;
+}
+.chatlog ::-webkit-scrollbar{
+	width:10px;
+}
+.chatlog ::-webkit-scrollbar-thumb{
+	border-radius: 5px;
+	background: rgba(0,0,0,.1);
+}
+
+.chat{
+	display: flex;
+	flex-flow: row-reverse wrap;
+	align-items: flex-start;
+	word-wrap: break-word;
+}
+.chat  .chat-msg{
+	padding: 3% ;
+	margin: 5px 10px 5px ;
+	color: black; 
+	width: 100%;	
+	border-radius: 10px;
+	font-size: 18px;
+}
+.self  .chat-msg{
+	width: 50%;
+	color: green ;
+	text-align: right;
+}
+.friend  .chat-msg{
+	text-align: left;
+	color: orange;
+}
