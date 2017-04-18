@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Rohit</title>
+<!-- Entypo font stylesheet -->
+<link href="css/entypo.css" rel="stylesheet">
+<!-- /entypo font stylesheet -->
+
+<!-- Font awesome stylesheet -->
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<!-- /font awesome stylesheet -->
+
+<!-- Bootstrap stylesheet min version -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- /bootstrap stylesheet min version -->
+<!-- Integral core stylesheet -->
+<link href="css/integral-core.css" rel="stylesheet">
+<!-- /integral core stylesheet -->
+<link href="css/integral-forms.css" rel="stylesheet">
+</head>
+<body>
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page Sidebar -->
+	<div class="page-sidebar">
+		<!-- Site header  -->
+		<header class="site-header">
+		  <div class="site-logo"><a href=""><img src="images/img.jpg" alt="" title="RohitRavipati"></a></div>
+		  <div class="sidebar-collapse hidden-xs"><a class="sidebar-collapse-icon" href="#"><i class="icon-menu"></i></a></div>
+		  <div class="sidebar-mobile-menu visible-xs"><a data-target="#side-nav" data-toggle="collapse" class="mobile-menu-icon" href="#"><i class="icon-menu"></i></a></div>
+		</header>
+		<!-- /site header -->
+		
+		<!-- Main navigation -->
+		<ul id="side-nav" class="main-menu navbar-collapse collapse">
+			<li class="navigation-header">Sidebar</li>
+			<li ><a href="index.html"><i class="icon"></i><span class="title">Home</span></a></li>
+			<li ><a href="bio.html"><i class="icon"></i><span class="title">Bio</span></a></li>
+			<li><a href="resume.html"><i class="icon"></i><span class="title">Resume</span></a>
+		<li ><a href="contact.html"><span class="title">Contact Me</span></a></li>
+  	</div>
+ 	 <!-- /page sidebar -->
+  
+  	<!-- Main container -->
+  	<div class="main-container">
+  
+		<!-- Main header -->
+		<div class="main-header row">
+		  <div class="col-sm-6 col-xs-7">
+			<!-- User info -->
+			<ul class="user-info pull-left">          
+			<h2> Rohit Ravipati </h2>
+			  </li>
+			</ul>
+			<!-- /user info -->
+		  </div>
+		  <div class="col-sm-6 col-xs-5">
+			<div class="pull-right">
+			</div>
+		  </div>
+		</div>
+					<!-- Main Menu -->
+								<nav class="navbar navbar" Style="background-color: lightgray">
+							  <div class="container-fluid">
+								<ul class="nav navbar-nav">
+								  <li class="active"><a href="index.html">Home</a></li>
+								  <li><a href="bio.html">Bio</a></li>
+								  <li><a href="resume.html">Resume</a></li>
+								  <li><a href="contact.html">Contact Me</a></li>
+								</ul>
+							  </div>
+							</nav>
+					<!--End Main menu -->
+		<div class="col-lg-6">
+			<!-- Form to collect the details -->			
+				<div class="panel panel-default">
+					<div class="panel-heading clearfix">
+						<h4 class="panel-title">Contact Form</h4>
+					</div>
+					<div class="panel-body">
+					<div id="formBlock">
+						 <form id="someForm" >
+						 
+						 <div class="form-group"> 
+							 	<label id="choose" class="col-sm-2 control-label">Purpose</label> 
+								<div class="col-sm-10"> 
+									<select class="form-control"> 
+										<option> Job Offer</option> 
+										<option>Mentoring</option>
+
+										<option>Interview</option>
+									</select>
+								</div> 
+							</div>
+							
+							 <div class="form-group"> 
+								<label class="col-sm-2 control-label">Name: </label>
+								<div class="form-group col-sm-10"> 
+								<input type="text" class="form-control" id="name"  name="name" placeholder="Your Name" required>
+							     </div>
+							</div>
+							  <div class="form-group">
+								<label class="col-sm-2 control-label">Email address:</label>
+								<div class="form-group col-sm-10"> 
+								<input type="email" class="form-control" id="emailaddress" name="emailaddress" placeholder="Email" required>
+							  </div>
+							  </div>
+					
+							  <div class="form-group">
+								<label class="col-sm-2 control-label">Mobile Number: </label>
+								<div class="form-group col-sm-10"> 
+								<input type="number" class="form-control" id="mob" name="mob" placeholder="Mobile Number" required> 
+							  </div>
+							  </div>
+							  <div class="form-group">
+								<label class="col-sm-2 control-label">Subject: </label>
+								<div class="form-group col-sm-10"> 
+								<input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+							  </div>
+							  </div>
+							  <div class="form-group">
+								<label class="col-sm-2 control-label">Message</label>
+								<div class="form-group col-sm-10"> 
+								<textarea  class="form-control" id="message" name="message" placeholder="Type Your Message here" required></textarea>
+							  </div>
+							  </div>
+							  <div class="form-group center" >
+							  <input type="submit" class="btn btn-primary" value="Submit">
+							  </div>
+							  
+						</form>
+					</div>
+					<div id="thankyouBlock" style="display:none">
+						<p>
+							Thank you for contact with me. I care a lot about it.
+						</p>
+					</div>
+					</div>
+		</div>
+			<!--End of Form  -->
+                          
+		</div>
+		
+	</div>
+	  <!-- /main content -->
+	  
+  </div>
+  <!-- /page container -->
+  <script src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript">
+  
+$(document).ready(function() {
+
+    $('#someForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        
+        var name = $('#name').val();
+        var emailaddress = $('#emailaddress').val();
+        var mob = $('#mob').val();
+        var subject = $('#subject').val();
+        var message = $('#message').val();
+        $.ajax({
+            url:'https://formspree.io/rohitravipati94@gmail.com',
+            method:'POST',
+            data:{
+                Name:name,
+                Email:emailaddress,
+                 Mobile:mob,
+                Subject:subject,
+                Message:message,
+            },
+            dataType:"json",
+            success:function() {
+                console.log('success'); 
+                $('#formBlock').hide();
+                $('#thankyouBlock').show();
+            }   
+
+        });     
+        
+    });
+
+}); 
+  </script>
+</body>
+</html>

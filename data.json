@@ -1,0 +1,44 @@
+ 
+
+ <div class="form-group"> 
+							 	<label id="choose" class="col-sm-2 control-label">Purpose</label> 
+								<div class="col-sm-10"> 
+									<select class="form-control"> 
+										<option> Job Offer</option> 
+										<option>Mentoring</option>
+
+										<option>Interview</option>
+									</select>
+								</div> 
+							</div>
+
+<script src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript">
+  
+$(document).ready(function() {
+
+    $('#someForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        
+        var name = $('#name').val();
+        var emailaddress = $('#emailaddress').val();
+        var mob = $('#mob').val();
+        var subject = $('#subject').val();
+        var message = $('#message').val();
+        $.ajax({
+            url:'https://formspree.io/rohitravipati94@gmail.com',
+            method:'POST',
+            data:{
+                Name:name,
+                Email:emailaddress,
+                 Mobile:mob,
+                Subject:subject,
+                Message:message,
+            },
+            dataType:"json",
+            success:function() {
+                console.log('success'); 
+                $('#formBlock').hide();
+                $('#thankyouBlock').show();
