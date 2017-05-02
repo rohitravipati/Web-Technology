@@ -1,147 +1,157 @@
-<?php include("myphp.php"); 
+<?php
+if(!empty($_POST["register-user"])) {
+	/* Form Required Field Validation */
+	foreach($_POST as $key=>$value) {
+		if(empty($_POST[$key])) {
+		$error_message = "All Fields are required";
+		break;
+		}
+	}
+	/* Password Matching Validation */
+	if($_POST['password'] != $_POST['confirm_password']){ 
+	$error_message = 'Passwords should be same<br>'; 
+	}
+
+	/* Email Validation */
+	if(!isset($error_message)) {
+		if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
+		$error_message = "Invalid Email Address";
+		}
+	}
+
+	/* Validation to check if gender is selected */
+	if(!isset($error_message)) {
+	if(!isset($_POST["gender"])) {
+	$error_message = " All Fields are required";
+	}
+	}
+
+	/* Validation to check if Terms and Conditions are accepted */
+	if(!isset($error_message)) {
+		if(!isset($_POST["terms"])) {
+		$error_message = "Accept Terms and Conditions to Register";
+		}
+	}
+
+	if(!isset($error_message)) {
+		require_once("dbcontroller.php");
+		$d=strtotime("10:30pm April 15 2014");
+		$dt=date("Y-m-d h:i:sa", $d);
+		$db_handle = new DBController();
+		$query = "INSERT INTO registered_users (user_name, first_name, last_name, password, email, gender,date_time) VALUES
+		('" . $_POST["userName"] . "', '" . $_POST["firstName"] . "', '" . $_POST["lastName"] . "', '" . md5($_POST["password"]) . "', '" . $_POST["userEmail"] . "', '" . $_POST["gender"] . "','" . $dt . "')";
+		$result = $db_handle->insertQuery($query);
+		if(!empty($result)) {
+			$error_message = "";
+			 $to      = 'rohitravipati94@gmail.com';
+        $subject = 'New user registration';
+        $message_body = '
+         Username '.$_POST["userName"].',
+		 firstName '.$_POST["firstName"].',
+		 lastName '. $_POST["lastName"] .',
+
+	   	Email '.$_POST["userEmail"].',
+
+		 Gender '. $_POST["gender"] .',
+		 Date '. $dt.'
+
+        ';  
+
+        mail( $to, $subject, $message_body );	
+			unset($_POST);
+			header("location: index.php");
+			$success_message = "You have registered successfully!";
+		} else {
+			$error_message = "Problem in registration. Try Again!";	
+		}
+	}
+}
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "phppot_examples";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+     die("Connection failed: " . $conn->connect_error);
+} 
+$sql = "SELECT * FROM registered_users";
+$result1 = $conn->query($sql);
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
- 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Coocies</title>
-<!-- Site favicon -->
-<link rel='shortcut icon' type='image/x-icon' href='' />
-<!-- /site favicon -->
-
-<!-- Entypo font stylesheet -->
-<link href="css/entypo.css" rel="stylesheet">
-<!-- /entypo font stylesheet -->
-
-<!-- Font awesome stylesheet -->
-<link href="css/font-awesome.min.css" rel="stylesheet">
-<!-- /font awesome stylesheet -->
-
-<!-- Bootstrap stylesheet min version -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<!-- /bootstrap stylesheet min version -->
-
-<!-- Integral core stylesheet -->
-<link href="css/integral-core.css" rel="stylesheet">
-<!-- /integral core stylesheet -->
-
-<link href="css/integral-forms.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
-
+<title>PHP User Registration Form</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
-<body >
-<div class="container">
-       <div class="main-content">
-		<h1 class="page-title">Create your profile</h1>
-		<!-- Breadcrumb -->
-		
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="panel panel-default">
-					<div class="panel-heading clearfix">
-						<h4 class="panel-title"></h4>
-					</div>
-					<div class="panel-body">
-						 <form method="post" action="">
-							<div class="form-group"> 
-								<label for="first_name">First Name</label> 
-								<input type="text" name="first_name" placeholder="First Name" class="form-control" required> 
-							</div>
-							<div class="form-group"> 
-								<label for="last_name">Last Name</label> 
-								<input type="text" name="last_name" placeholder="Last Name" class="form-control" required> 
-							</div>
-							  <div class="form-group">
-								<label for="emailaddress">Email address</label>
-								<input type="email" class="form-control" id="email_address" name="email_address" placeholder="Email" required>
-							  </div>
-							  <div class="form-group">
-								<label for="About-Me">About Me</label>
-								<textarea name="about_me" placeholder="About Me" class="form-control" required></textarea>
-							  </div>
-							  <div class="checkbox">
-								<label><input type="hidden" name="check" value= 0 ></label>
-								<label><input type="checkbox" name="check" value= 1 >Remember</label>
-							  </div>
-							  <button type="submit" name="click" class="btn btn-primary">Create Profile</button>
-						</form>
-					</div>
-					<div class="panel-body">
-					
-				</div>
-				</div>
-			</div>
-			
-			<div class="col-lg-6">
-			<div class="">
-				<div class="alert alert-success" id="success-alert">
-    <button type="button" class="close" data-dismiss="alert">x</button>
-    <strong>Welcome! </strong>
-    you can successfully create your profile"
-</div>
-					<!-- Card -->
-					<div class="card">
-					<!-- Card action dropdown -->
-						<form name="myform" id ="myform" method="post"  action="">
-						<label for="first_name">Change Theme Color :</label> 
-						<select style="color: black" id="sel_color" name="sel_color"  onchange="submitform();">
-							<option value="">Select Color</option>
-							<option value="blue">Blue </option> 
-							<option value="orange">Orange</option> 
-							<option value="yellow">Yellow </option>                   
-						</select>
-
-						</form>
-							<!-- /card action dropdown -->
-						<!-- Card header -->
-						<div class="card-header " style="background-color: <?php echo $_COOKIE['theme_color']; ?>">
-						
-							<!-- Card photo 
-							<div class="card-photo">
-								<img title="Alex Dolgove" alt="Alex Dolgove" src="images/alex-dolgove.png" class="img-circle avatar size-105">						
-							</div>
-							<!-- /card photo -->
-							
-							<!-- Card short description -->
-							<div class="card-short-description ">
-								<div class="row">
-									<h5 class="col-lg-6">First Name: </h5><h5 class="col-lg-6"><?php echo  $_COOKIE['first']; ?></h5>
-									<h5 class="col-lg-6">Last Name: </h5><h5 class="col-lg-6"><?php echo $_COOKIE['last']; ?></h5>
-									<h5 class="col-lg-6">Email: </h5><h5 class="col-lg-6"><?php echo  $_COOKIE['email']; ?></h5>
-								</div>
-								
-								
-							</div>
-							
-						</div>
-						<!-- /card header -->
-						
-						<!-- Card content -->
-						<div class="card-content">
-							<p class="badges"><span class="badge badge-bordered">About Me</span></p>
-							<p><?php echo  $_COOKIE['me']; ?></p>
-						</div>
-						<!-- /card content -->
-					</div>
-					<!-- /card -->
-					
-					
-				</div>
-			</div>
-		</div>
-	</div>
+<body>
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'Registration')">Registration</button>
+  <button class="tablinks" onclick="openCity(event, 'List of Users registered')">List of Users registered</button>
 </div>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="plugins/metismenu/js/jquery.metisMenu.js"></script>
-<script src="script/msg.js">
+<div  id="Registration" class="tabcontent">
+  <h3>Register Form</h3>
+  <form name="frmRegistration" method="post" action="">
+<table border="0" width="500" align="center" class="demo-table">
+<?php if(!empty($success_message)) { ?>	
+<div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
+<?php } ?>
+<?php if(!empty($error_message)) { ?>	
+<div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
+<?php } ?>
+<tr>
+<td>User Name</td>
+<td><input type="text" class="demoInputBox" name="userName" value="<?php if(isset($_POST['userName'])) echo $_POST['userName']; ?>"></td>
+</tr>
+<tr>
+<td>First Name</td>
+<td><input type="text" class="demoInputBox" name="firstName" value="<?php if(isset($_POST['firstName'])) echo $_POST['firstName']; ?>"></td>
+</tr>
+<tr>
+<td>Last Name</td>
+<td><input type="text" class="demoInputBox" name="lastName" value="<?php if(isset($_POST['lastName'])) echo $_POST['lastName']; ?>"></td>
+</tr>
+<tr>
+<td>Password</td>
+<td><input type="password" class="demoInputBox" name="password" value=""></td>
+</tr>
+<tr>
+<td>Confirm Password</td>
+<td><input type="password" class="demoInputBox" name="confirm_password" value=""></td>
+</tr>
+<tr>
+<td>Email</td>
+<td><input type="text" class="demoInputBox" name="userEmail" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>"></td>
+</tr>
+<tr>
+<td>Gender</td>
+<td><input type="radio" name="gender" value="Male" <?php if(isset($_POST['gender']) && $_POST['gender']=="Male") { ?>checked<?php  } ?>> Male
+<input type="radio" name="gender" value="Female" <?php if(isset($_POST['gender']) && $_POST['gender']=="Female") { ?>checked<?php  } ?>> Female
+</td>
+</tr>
+<tr>
+<td colspan=2>
+<input type="checkbox" name="terms"> I accept Terms and Conditions <input type="submit" name="register-user" value="Register" class="btnRegister"></td>
+</tr>
+</table>
+</form>
+</div>
 
-</script>
+<div id="List of Users registered" class="tabcontent">
+  <h3>List of registered users</h3>
+ <?php 
+ if ($result1->num_rows > 0) {
+     // output data of each row
+     while($row = $result1->fetch_assoc()) {
+         echo "<br>   Username: ". $row["user_name"]. " - Name: ". $row["first_name"]. " " . $row["last_name"]. " -Email ". $row["email"]. "-Time". $row["date_time"] ."<br>";
+     }
+} else {
+     echo "0 results";
+}  
+?>
+</div>
 
-</body>
-</html>
+ <script src="js/script.js"></script>
+</body></html>

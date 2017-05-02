@@ -1,25 +1,84 @@
+<style>
+body{
+	width:610px;
+	font-family:calibri;
+}
+.error-message {
+	padding: 7px 10px;
+	background: #fff1f2;
+	border: #ffd5da 1px solid;
+	color: #d6001c;
+	border-radius: 4px;
+}
+.success-message {
+	padding: 7px 10px;
+	background: #cae0c4;
+	border: #c3d0b5 1px solid;
+	color: #027506;
+	border-radius: 4px;
+}
+.demo-table {
+	background: #d9eeff;
+	width: 100%;
+	border-spacing: initial;
+	margin: 2px 0px;
+	word-break: break-word;
+	table-layout: auto;
+	line-height: 1.8em;
+	color: #333;
+	border-radius: 4px;
+	padding: 20px 40px;
+}
+.demo-table td {
+	padding: 15px 0px;
+}
+.demoInputBox {
+	padding: 10px 30px;
+	border: #a9a9a9 1px solid;
+	border-radius: 4px;
+}
+.btnRegister {
+	padding: 10px 30px;
+	background-color: #3367b2;
+	border: 0;
+	color: #FFF;
+	cursor: pointer;
+	border-radius: 4px;
+	margin-left: 10px;
+}
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
 
-/*==========================================================
-    Template Name: Mim Personal Portfolio Template
-    Created By: RegalTheme
-    Envato Profile: https://themeforest.net/user/regaltheme
-    Website: http://regaltheme.com
-    Description: Mim is Fully Responsive Personal Portfolio Template with awesome features.
-    Version: v1.1
-    Support: http://regaltheme.com/support
-============================================================*/
+/* Style the buttons inside the tab */
+div.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
 
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
 
-/* google fonts
-========================== */
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400');
+/* Create an active/current tablink class */
+div.tab button.active {
+    background-color: #ccc;
+}
 
-/* css files
-====================== */
-@import url('assets/css/bootstrap.min.css');
-@import url('assets/css/material-design-iconic-font.min.css');
-@import url('assets/css/slick.min.css');
-@import url('assets/css/jquery.fancybox.css');
-@import url('assets/css/style.css');
-@import url('assets/css/responsive.css');
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+</style>
